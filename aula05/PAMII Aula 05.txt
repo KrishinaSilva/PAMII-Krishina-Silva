@@ -1,0 +1,93 @@
+PAMII Aula 05 - 21/03/2025
+
+
+- entra no projeto criado 
+- clica app e depois nas configurações que vai abrir o projeto
+- clica no menu criação
+- clica em firestore database
+- clica em criar banco de dados 
+
+*Local é onde você tem a estrutura de servidores de alguma marca que faz com que sua aplicação funcione, mesmo se ocorrer ataques o seu site esta seguro*
+
+- escolher um servidor do brasil (já que não quer desempenho só que rode no brasil)
+- deixa o id padrão(sem nada) e clica em avançar
+- iniciar a base no servidor de modo de produção
+
+*esta criando uma área onde todos os bancos de dados serão criados*
+*O servidor de produção é tudo aquilo que esta numa brench chamada main(o que chega para o usuário) - GitHub*
+*O banco de dados não relacional tem coleções e que armazenam documentos*
+
+- clicar em regras que vai estar assim:
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+- troca o false pelo true e clica em publicar(vai aparecer a seguinte mensagem: Suas regras de segurança estão definidas como públicas. Com essa configuração, qualquer pessoa pode roubar, modificar ou excluir informações do seu banco de dados)
+- clica em dados novamente e aperta em criar coleção e cria a coleção chamada "Nomes" e próxima
+- deixa o id do documento em branco, e os campos coloca "Nome" e valor "nometeste" e faz a mesma coisa com sobrenome
+- clica no código automático do lado do id do documento que vai gerar uma chave aleatória
+
+*É necessário ter uma loja para bancos não relacional*
+
+Firebase dentro do projeto
+
+- Vai nas configurações do firebase e clica nas configurações do projeto
+- instala o firebase (para ele ser baixado no projeto)
+- na pasta app vai na outra pasta chamada node modules
+- copia a configuração da const firebaseConfig ={} no index.tsx
+- copia só as informações da foto que eu salvei na galeria:
+
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBFhtq8lUexiX07JHKXIOMkHk-qb3hVlC8",
+  authDomain: "meu-primeiro-projeto-bffeb.firebaseapp.com",
+  projectId: "meu-primeiro-projeto-bffeb",
+  storageBucket: "meu-primeiro-projeto-bffeb.firebasestorage.app",
+  messagingSenderId: "424709289689",
+  appId: "1:424709289689:web:67a6a70c14b70e5f1a70c8"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+import React, { useEffect, useState } from 'react';
+import {View, Text, FlatList} from 'react-native';
+
+export default function App() {
+	const [nomes, setNomes] = useState([]);
+
+useEffect(() => {
+	const fetchData = async () => {
+		const nomesCollection = firebase.firestore().collection('Nomes');
+		const snapshot = await nomesCollection.get();
+
+		const data = [];
+		snapshot.forEach((doc) => {
+		  data.push({ id: doc.id, ...doc.data() });
+                });
+
+	setNomes(data);
+ };
+		
+ fetchData();
+},[]);
+ 
+ return (
+   <View style = {{flex: 1, justifyContent: 'center',
+   alignItems: 'center' }}>
+   <Text>Lista de Nomes:</Text>
+   <FlatList
+    data={nomes}
+    keyExtractor={(item) => item.id}
+    renderItem={({ item }) => (
+     <View>
+      <Text>{item.Nome} {item.Sobrenome}</Text>
+	</View>
