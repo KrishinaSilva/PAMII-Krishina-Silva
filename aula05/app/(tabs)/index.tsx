@@ -1,5 +1,5 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/firestore';
 
 //informações do meu firebase
 const firebaseConfig = {
@@ -11,38 +11,38 @@ const firebaseConfig = {
   appId: "1:424709289689:web:67a6a70c14b70e5f1a70c8"
 };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
-import React, { useEffect, useState } from 'react';
-import {View, Text, FlatList} from 'react-native';
+// import React, { useEffect, useState } from 'react';
+// import {View, Text, FlatList} from 'react-native';
 
-export default function App() {
-	const [nomes, setNomes] = useState([]);
+// export default function App() {
+// const [nomes, setNomes] = useState([]);
 
-useEffect(() => {
-	const fetchData = async () => {
-		const nomesCollection = firebase.firestore().collection('Nomes');
-		const snapshot = await nomesCollection.get();
+// useEffect(() => {
+	//const fetchData = async () => {
+		//const nomesCollection = firebase.firestore().collection('Nomes');
+		//const snapshot = await nomesCollection.get();
 
-		const data = [];
-		snapshot.forEach((doc) => {
-		  data.push({ id: doc.id, ...doc.data() });
-                });
+		//const data = [];
+		//snapshot.forEach((doc) => {
+		  //data.push({ id: doc.id, ...doc.data() });
+        //        });
 
-	setNomes(data);
- };
+	//setNomes(data);
+ //};
 		
- fetchData();
-},[]);
- 
- return (
-   <View style = {{flex: 1, justifyContent: 'center',
-   alignItems: 'center' }}>
-   <Text>Lista de Nomes:</Text>
-   <FlatList
-    data={nomes}
-    keyExtractor={(item) => item.id}
-    renderItem={({ item }) => (
-     <View>
-      <Text>{item.Nome} {item.Sobrenome}</Text>
-    </View>
+ //fetchData();
+//},[]);
+
+ //return (
+   //<View style = {{flex: 1, justifyContent: 'center',
+   //alignItems: 'center' }}>
+   //<Text>Lista de Nomes:</Text>
+   //<FlatList
+    //data={nomes}
+    //keyExtractor={(item) => item.id}
+    //renderItem={({ item }) => (
+     //<View>
+      //<Text>{item.Nome} {item.Sobrenome}</Text>
+    //</View>
