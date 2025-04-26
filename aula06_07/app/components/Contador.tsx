@@ -40,7 +40,6 @@ export default class Contador extends React.Component{
         );
     }
 }
-
 const styles = StyleSheet.create({
     botoes: {
         display: 'flex',
