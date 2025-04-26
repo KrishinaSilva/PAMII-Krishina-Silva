@@ -41,15 +41,32 @@ export default class Contador extends React.Component{
     }
 }
 const styles = StyleSheet.create({
-    botoes: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignSelf: 'center',
-        top: 200,
-        height: 40,
-    },
     texto: {
-        alignItems: 'center',
-        top: 200,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 100,
+      marginBottom: 30,
+      padding: 20,
+      backgroundColor: '#e0f7fa',
+      borderRadius: 10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
     },
-});
+    botoes: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginHorizontal: 40,
+    },
+    botao1: {
+      backgroundColor: '#81c784',
+      padding: 10,
+      borderRadius: 8,
+    },
+    botao2: {
+      backgroundColor: '#e57373',
+      padding: 10,
+      borderRadius: 8,
+    },
+  });
