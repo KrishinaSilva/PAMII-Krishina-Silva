@@ -15,7 +15,7 @@ firebase.initializeApp(firebaseConfig);
 
 
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
     const [nomes, setNomes] = useState([]);
@@ -36,17 +36,59 @@ export default function App() {
     }, []);
 
     return (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{color: '#3568' }}>Lista de Nomes:</Text>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title}>Lista de Nomes</Text>
+            </View>
             <FlatList
                 data={nomes}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View>
-                        <Text>{item.Nome} {item.Sobrenome}</Text>
+                    <View style={styles.item}>
+                        <Text style={styles.itemText}>{item.Nome} {item.Sobrenome}</Text>
                     </View>
                 )}
+                contentContainerStyle={styles.listContent}
             />
-        </View>
+        </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f4f4f4',
+        paddingTop: 40,
+        paddingHorizontal: 20,
+    },
+    header: {
+        backgroundColor: '#3568f7',
+        padding: 20,
+        borderRadius: 8,
+        marginBottom: 20,
+        alignItems: 'center',
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
+    listContent: {
+        paddingBottom: 20,
+    },
+    item: {
+        backgroundColor: '#fff',
+        padding: 15,
+        marginBottom: 10,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 2,
+    },
+    itemText: {
+        fontSize: 18,
+        color: '#333',
+    },
+});
