@@ -37,7 +37,7 @@ export default function App() {
 
     return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Lista de Nomes:</Text>
+            <Text style={{color: '#3568' }}>Lista de Nomes:</Text>
             <FlatList
                 data={nomes}
                 keyExtractor={(item) => item.id}
